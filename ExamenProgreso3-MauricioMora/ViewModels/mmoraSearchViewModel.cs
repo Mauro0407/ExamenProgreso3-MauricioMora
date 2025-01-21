@@ -5,6 +5,8 @@ namespace ViewModels
 {
     public class mmoraSearchViewModel
     {
+        public object MovieDatabase { get; private set; }
+
         public async Task SearchMovieAsync(string movieName)
         {
             if (string.IsNullOrWhiteSpace(movieName))
@@ -18,7 +20,7 @@ namespace ViewModels
                 string apiUrl = $"https://freetestapi.com/api/v1/movies?search={movieName}&limit=1";
                 using var httpClient = new HttpClient();
                 var response = await httpClient.GetStringAsync(apiUrl);
-                var movieResponse = JsonSerializer.Deserialize<MovieResponse>(response);
+                var movieResponse = JsonSerializer.Deserialize<mmoraMovieResponseViewModel>(response);
 
                 if (movieResponse != null && movieResponse.Movies.Any())
                 {
@@ -36,17 +38,17 @@ namespace ViewModels
             }
         }
 
-        private async Task SaveMovieToDatabaseAsync(Movie movie)
+        private async Task SaveMovieToDatabaseAsync(mmoraMovieViewModel movie)
         {
             // Guardar en SQLite
             var database = await MovieDatabase.Instance;
-            await database.SaveMovieAsync(new MovieEntity
+            await database.SaveMovieAsync(new mmoraMovieEntityViewModel
             {
-                Title = movie.Title,
-                Genre = movie.Genres.FirstOrDefault(),
-                MainActor = movie.Actors.FirstOrDefault(),
-                Awards = movie.Awards,
-                Website = movie.Website,
+                Titulo = movie.Titulo,
+                Genero = movie.Generos.FirstOrDefault(),
+                ActorPrincipal = movie.Actor.FirstOrDefault(),
+                Premios = movie.Premios,
+                SitioWeb = movie.SitioWeb,
                 Mmora = "Mmora"
             });
         }

@@ -24,4 +24,3 @@ public partial class mmoraSearchPage : ContentPage
         mmora_lblResult.Text = "Resultado de búsqueda...";
     }
 }
-}

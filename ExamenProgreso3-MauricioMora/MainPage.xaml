@@ -3,12 +3,6 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="ExamenProgreso3_MauricioMora.MainPage"
              Title="Mauricio Mora">
-    <TabControl>
-        <TabControl.TabItem Header="Buscador">
-            <local:mmoraSearchPage />
-        </TabControl.TabItem>
-        <TabControl.TabItem Header="Consultadas">
-            <local:ConsultedPage />
-        </TabControl.TabItem>
-    </TabControl>
+    <local:mmoraSearchPage Title="Buscador" />
+    <local:mmoraConsultedPage Title="Consultadas" />
 </ContentPage>
