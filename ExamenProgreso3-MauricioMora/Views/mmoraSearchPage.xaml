@@ -7,6 +7,6 @@
         <Entry x:Name="mmora_entrySearch" Placeholder="Ingrese el nombre de la película" />
         <Button x:Name="mmora_btnSearch" Text="Buscar" Clicked="OnSearchButtonClicked" />
         <Button x:Name="mmora_btnClear" Text="Limpiar" Clicked="OnClearButtonClicked" />
-        <Label x:Name="mmora_lblResult" Text="Resultado de búsqueda..." />
+        <Label x:Name="mmora_lblResult" Text="Resultado de búsqueda" />
     </VerticalStackLayout>
 </ContentPage>
