@@ -1,11 +1,24 @@
-﻿
+﻿using System.Linq;
 using System.Text.Json;
+using System.Net.Http;
+using System.Threading.Tasks;
+using ExamenProgreso3_MauricioMora.Models;
 
-namespace ViewModels
+namespace ExamenProgreso3_MauricioMora.ViewModels
 {
-    public class mmoraSearchViewModel
+    public class mmoraSearchViewModel : BaseViewModel
     {
-        public object MovieDatabase { get; private set; }
+        private string _movieDetails;
+
+        public string MovieDetails
+        {
+            get => _movieDetails;
+            set
+            {
+                _movieDetails = value;
+                OnPropertyChanged(); // Notifica el cambio de propiedad a la vista
+            }
+        }
 
         public async Task SearchMovieAsync(string movieName)
         {
@@ -20,36 +33,43 @@ namespace ViewModels
                 string apiUrl = $"https://freetestapi.com/api/v1/movies?search={movieName}&limit=1";
                 using var httpClient = new HttpClient();
                 var response = await httpClient.GetStringAsync(apiUrl);
-                var movieResponse = JsonSerializer.Deserialize<mmoraMovieResponseViewModel>(response);
+
+                var movieResponse = JsonSerializer.Deserialize<MovieResponse>(response);
 
                 if (movieResponse != null && movieResponse.Movies.Any())
                 {
                     var movie = movieResponse.Movies.First();
+                    MovieDetails = $"Título: {movie.Title}\n" +
+                                   $"Género: {string.Join(", ", movie.Genre)}\n" +
+                                   $"Actor Principal: {movie.Actors.FirstOrDefault()}\n" +
+                                   $"Awards: {movie.Awards}\n" +
+                                   $"Website: {movie.Website}";
+
                     await SaveMovieToDatabaseAsync(movie);
                 }
                 else
                 {
-                    await Application.Current.MainPage.DisplayAlert("Error", "Película no encontrada", "OK");
+                    MovieDetails = "Película no encontrada.";
                 }
             }
             catch (Exception ex)
             {
-                await Application.Current.MainPage.DisplayAlert("Error", ex.Message, "OK");
+                MovieDetails = $"Error: {ex.Message}";
             }
         }
 
-        private async Task SaveMovieToDatabaseAsync(mmoraMovieViewModel movie)
+        private async Task SaveMovieToDatabaseAsync(Movie movie)
         {
-            // Guardar en SQLite
-            var database = await MovieDatabase.Instance;
-            await database.SaveMovieAsync(new mmoraMovieEntityViewModel
+            // Usamos GetInstanceAsync() en lugar de Instance
+            var database = await MovieDatabase.GetInstanceAsync();
+            await database.SaveMovieAsync(new MovieEntity
             {
-                Titulo = movie.Titulo,
-                Genero = movie.Generos.FirstOrDefault(),
-                ActorPrincipal = movie.Actor.FirstOrDefault(),
-                Premios = movie.Premios,
-                SitioWeb = movie.SitioWeb,
-                Mmora = "Mmora"
+                Title = movie.Title,
+                Genre = movie.Genre.FirstOrDefault(),
+                MainActor = movie.Actors.FirstOrDefault(),
+                Awards = movie.Awards,
+                Website = movie.Website,
+                Mmora = "Mauricio Mora"
             });
         }
     }

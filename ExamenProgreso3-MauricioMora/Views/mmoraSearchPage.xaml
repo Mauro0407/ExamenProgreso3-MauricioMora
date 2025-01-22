@@ -1,12 +1,24 @@
-<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:ExamenProgreso3_MauricioMora.Views"
              x:Class="ExamenProgreso3_MauricioMora.Views.mmoraSearchPage"
-             Title="Buscar Películas">
+             Title="Buscar Películas"
+             BindingContext="{Binding Source={RelativeSource Self}}">
+
     <VerticalStackLayout>
-        <Entry x:Name="mmora_entrySearch" Placeholder="Ingrese el nombre de la película" />
-        <Button x:Name="mmora_btnSearch" Text="Buscar" Clicked="OnSearchButtonClicked" />
-        <Button x:Name="mmora_btnClear" Text="Limpiar" Clicked="OnClearButtonClicked" />
-        <Label x:Name="mmora_lblResult" Text="Resultado de búsqueda" />
+        <Entry x:Name="mmora_entrySearch" 
+               Placeholder="Ingrese el nombre de la película"
+               Text="{Binding SearchQuery}" />
+
+        <Button x:Name="mmora_btnSearch" 
+                Text="Buscar"
+                Command="{Binding SearchCommand}" />
+
+        <Button x:Name="mmora_btnClear" 
+                Text="Limpiar"
+                Command="{Binding ClearCommand}" />
+
+        <Label x:Name="mmora_lblResult" 
+               Text="{Binding SearchResult}" />
     </VerticalStackLayout>
 </ContentPage>

@@ -3,5 +3,11 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="ExamenProgreso3_MauricioMora.Views.mmoraConsultedPage"
              Title="Películas Consultadas">
-    <ListView x:Name="mmora_listMovies" />
+    <ListView x:Name="mmora_listMovies" ItemsSource="{Binding Movies}">
+        <ListView.ItemTemplate>
+            <DataTemplate>
+                <TextCell Text="{Binding Title}" Detail="{Binding Genre}" />
+            </DataTemplate>
+        </ListView.ItemTemplate>
+     </ListView>
 </ContentPage>

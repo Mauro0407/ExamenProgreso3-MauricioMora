@@ -1,11 +1,12 @@
-﻿using System.Collections.ObjectModel;
+﻿using ExamenProgreso3_MauricioMora.Models;
+using System.Collections.ObjectModel;
+using ViewModels;
 
-namespace ViewModels
+namespace ExamenProgreso3_MauricioMora.ViewModels
 {
     public class mmoraConsultedViewModel : BaseViewModel
     {
         public ObservableCollection<MovieEntity> Movies { get; set; }
-        public object MovieDatabase { get; private set; }
 
         public mmoraConsultedViewModel()
         {
@@ -14,7 +15,7 @@ namespace ViewModels
 
         private async Task LoadMoviesAsync()
         {
-            var database = await MovieDatabase.Instance;
+            var database = await MovieDatabase.GetInstanceAsync();
             Movies = new ObservableCollection<MovieEntity>(await database.GetMoviesAsync());
         }
     }
