@@ -1,21 +1,22 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:local="clr-namespace:ExamenProgreso3_MauricioMora.Views"
-             x:Class="ExamenProgreso3_MauricioMora.Views.mmoraSearchPage"
-             Title="Buscar Películas"
-             BindingContext="{Binding Source={RelativeSource Self}}">
+             xmlns:viewModels="clr-namespace:ExamenProgreso3_MauricioMora.ViewModels"
+             x:Class="ExamenProgreso3_MauricioMora.Views.mmoraSearchPage">
 
-    <VerticalStackLayout>
-        <Entry x:Name="mmora_entrySearch" 
-               Placeholder="Ingrese el nombre de la película"
-               Text="{Binding SearchQuery}" />
-        <Button x:Name="mmora_btnSearch" 
-                Text="Buscar"
-                Command="{Binding SearchCommand}" />
-        <Button x:Name="mmora_btnClear" 
-                Text="Limpiar"
-                Command="{Binding ClearCommand}" />
-        <Label x:Name="mmora_lblResult" 
-               Text="{Binding MovieDetails}" />
-    </VerticalStackLayout>
+    <!-- Vincula el ViewModel -->
+    <ContentPage.BindingContext>
+        <viewModels:mmoraSearchViewModel />
+    </ContentPage.BindingContext>
+
+    <StackLayout Padding="10">
+        <!-- Campo de búsqueda -->
+        <Entry Text="{Binding SearchQuery}" Placeholder="Ingresa el nombre de la película" />
+
+        <Button Text="Buscar" Command="{Binding SearchCommand}" />
+        <Button Text="Limpiar" Command="{Binding ClearCommand}" />
+
+
+        <!-- Mostrar detalles de la película -->
+        <Label Text="{Binding MovieDetails}" />
+    </StackLayout>
 </ContentPage>

@@ -52,6 +52,7 @@ namespace ExamenProgreso3_MauricioMora.ViewModels
 
             try
             {
+                // Validar URL de la API
                 string apiUrl = $"https://freetestapi.com/api/v1/movies?search={movieName}&limit=1";
                 using var httpClient = new HttpClient();
                 var response = await httpClient.GetStringAsync(apiUrl);
@@ -59,6 +60,7 @@ namespace ExamenProgreso3_MauricioMora.ViewModels
                 // Muestra la respuesta JSON para depuración
                 Console.WriteLine(response);
 
+                // Verifica si la respuesta se pudo deserializar correctamente
                 var movieResponse = JsonSerializer.Deserialize<MovieResponse>(response);
 
                 if (movieResponse != null && movieResponse.Movies.Any())
@@ -82,6 +84,7 @@ namespace ExamenProgreso3_MauricioMora.ViewModels
             }
             catch (Exception ex)
             {
+                // Captura y muestra cualquier otro tipo de error
                 MovieDetails = $"Error: {ex.Message}";
             }
         }
@@ -89,8 +92,9 @@ namespace ExamenProgreso3_MauricioMora.ViewModels
         // Método para limpiar la búsqueda
         private void ClearSearch()
         {
-            SearchQuery = string.Empty;  // Limpia la consulta de búsqueda
-            MovieDetails = string.Empty; // Limpia los detalles de la película
+            // Limpia la consulta de búsqueda y los detalles de la película
+            SearchQuery = string.Empty;
+            MovieDetails = string.Empty;
         }
     }
 }
