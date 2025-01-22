@@ -3,6 +3,8 @@
             xmlns:local="clr-namespace:ExamenProgreso3_MauricioMora.Views"
             x:Class="ExamenProgreso3_MauricioMora.MainPage"
             Title="Mauricio Mora">
+
     <local:mmoraSearchPage Title="Buscador" />
     <local:mmoraConsultedPage Title="Consultadas" />
+
 </TabbedPage>

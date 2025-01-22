@@ -4,12 +4,9 @@ namespace ExamenProgreso3_MauricioMora.Views;
 
 public partial class mmoraSearchPage : ContentPage
 {
-    private readonly mmoraSearchViewModel _viewModel;
-
     public mmoraSearchPage()
     {
         InitializeComponent();
-        _viewModel = new mmoraSearchViewModel();
-        BindingContext = _viewModel;
+        BindingContext = new mmoraSearchViewModel();  // Vincula el ViewModel aquí
     }
 }

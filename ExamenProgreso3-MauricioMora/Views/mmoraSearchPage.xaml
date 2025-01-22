@@ -9,16 +9,13 @@
         <Entry x:Name="mmora_entrySearch" 
                Placeholder="Ingrese el nombre de la película"
                Text="{Binding SearchQuery}" />
-
         <Button x:Name="mmora_btnSearch" 
                 Text="Buscar"
                 Command="{Binding SearchCommand}" />
-
         <Button x:Name="mmora_btnClear" 
                 Text="Limpiar"
                 Command="{Binding ClearCommand}" />
-
         <Label x:Name="mmora_lblResult" 
-               Text="{Binding SearchResult}" />
+               Text="{Binding MovieDetails}" />
     </VerticalStackLayout>
 </ContentPage>
